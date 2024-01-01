@@ -1,10 +1,8 @@
 import { OnMessageCallback, connect } from 'mqtt'; // import connect from mqtt
-const mqttUser = 'frigate';
-const mqttPass = '';
-const mqttCon = `mqtt://${mqttUser}:${mqttPass}@192.168.178.34:1883`;
+import { config } from '../config';
 
 export function connectMqtt(topic: string, cb: OnMessageCallback) {
-  const client = connect(mqttCon); // create a client
+  const client = connect(config.mqttConnectionString); // create a client
 
   client.on('connect', () => {
     client.subscribe(topic);

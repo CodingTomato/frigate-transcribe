@@ -1,18 +1,16 @@
-const whisperUrl = 'http://192.168.178.34:9000';
+import { config } from '../config';
+import { DetectedLanguage } from '../types/Transcript';
 
 export async function detectLanguage(clip: Blob) {
   const formData = new FormData();
   formData.append('audio_file', clip);
 
-  const responseRaw = await fetch(`${whisperUrl}/detect-language`, {
+  const responseRaw = await fetch(`${config.whisperUrl}/detect-language`, {
     method: 'POST',
     body: formData,
   });
 
-  return (await responseRaw.json()) as {
-    detected_language: string;
-    language_code: string;
-  };
+  return (await responseRaw.json()) as DetectedLanguage;
 }
 
 export async function transcribe(clip: Blob, languageCode: string) {
@@ -20,7 +18,7 @@ export async function transcribe(clip: Blob, languageCode: string) {
   formData.append('audio_file', clip);
   formData.append('language', languageCode);
 
-  const responseRaw2 = await fetch(`${whisperUrl}/asr`, {
+  const responseRaw2 = await fetch(`${config.whisperUrl}/asr`, {
     method: 'POST',
     body: formData,
   });
