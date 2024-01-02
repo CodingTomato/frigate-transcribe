@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { html } from 'hono/html';
 import { getAllTranscripts } from './db';
 import { Transcript } from '../types/Transcript';
-import { config } from '../config';
+import { config } from './config';
 
 export const frontend = new Hono();
 

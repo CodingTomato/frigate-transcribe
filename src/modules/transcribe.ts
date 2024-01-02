@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from './config';
 import { DetectedLanguage } from '../types/Transcript';
 
 export async function detectLanguage(clip: Blob) {

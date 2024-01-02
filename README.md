@@ -9,7 +9,15 @@ This tool aims to offer a nice UI to easily transcribe "speech" (or any other ty
 
 ## Config
 
-To change any configs you currently have to edit the `indext.ts` in the config directory. (`src/config`)
+To change any configs you currently have to create a `.env` file in the root of this project.
+
+```
+FRIGATE_URL=<frigate-url>
+WHISPER_URL=<whisper-url>
+MQTT_CONNECTION=<mqtt-broker-url>
+TARGET_LANGUAGE_CODE=<country-code>
+SERVER_PORT=<server-port>
+```
 
 ## Running dev environment
 

@@ -1,16 +1,20 @@
 {
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsx build -p ./dist"
   },
   "dependencies": {
     "@hono/node-server": "^1.3.3",
     "@vitalets/google-translate-api": "^9.2.0",
+    "dotenv": "^16.3.1",
     "hono": "^3.11.11",
     "mqtt": "^5.3.4",
     "sqlite3": "^5.1.7-rc.0",
+    "typescript": "^5.3.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/node-fetch": "^2.6.10",
     "tsx": "^3.12.2"
   }
 }

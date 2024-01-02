@@ -1,5 +1,5 @@
 import { OnMessageCallback, connect } from 'mqtt'; // import connect from mqtt
-import { config } from '../config';
+import { config } from './config';
 
 export function connectMqtt(topic: string, cb: OnMessageCallback) {
   const client = connect(config.mqttConnectionString); // create a client
