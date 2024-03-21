@@ -1,9 +1,9 @@
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
-import { getAllTranscripts, addTranscript } from './db';
-import { setSubLabel } from './frigate';
+import { getAllTranscripts } from './db';
 import { transcribeClipId } from '../utils/transcribeClipId';
 import { persistTranscript } from '../utils/persistTranscript';
+import { q } from './queue';
 
 export const api = new Hono();
 
@@ -19,6 +19,21 @@ api.get('/transcribe/:clipId', async (c) => {
     console.log(error);
     throw new HTTPException(500, { message: error as string });
   }
+});
+
+api.get('/queue/status', async (c) => {
+  return c.json({
+    idle: q.idle(),
+    running: q.running(),
+    queue: q.getQueue(),
+  });
+});
+
+api.get('/queue/:clipId', async (c) => {
+  const { clipId } = c.req.param();
+  console.log(`🚂 [API]: Adding ${clipId} to queue`);
+  q.push({ clipId });
+  return c.json({ message: 'Added to queue' });
 });
 
 api.get('/transcriptions', async (c) => {

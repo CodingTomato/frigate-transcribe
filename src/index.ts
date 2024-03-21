@@ -6,8 +6,7 @@ import { config } from './modules/config';
 import { api } from './modules/api';
 import { frontend } from './modules/frontend';
 import { FrigateEvent } from './types/FrigateEvent';
-import { transcribeClipId } from './utils/transcribeClipId';
-import { persistTranscript } from './utils/persistTranscript';
+import { q } from './modules/queue';
 
 connectMqtt('frigate/events', async (_topic, message) => {
   const event = JSON.parse(message.toLocaleString()) as FrigateEvent;
@@ -18,8 +17,8 @@ connectMqtt('frigate/events', async (_topic, message) => {
 
   console.log('New speech event detected...', event.before.id);
 
-  const transcript = await transcribeClipId(event.after.id);
-  await persistTranscript(transcript);
+  console.log(`🚂 [MQTT]: Adding ${event.before.id} to queue`);
+  q.push({ clipId: event.before.id });
 });
 
 const app = new Hono();

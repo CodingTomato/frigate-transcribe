@@ -7,5 +7,6 @@ export async function persistTranscript(transcript: Transcript) {
     transcript.clipId,
     transcript.detectedLanguage.detected_language,
   );
-  await addTranscript(transcript);
+
+  addTranscript(transcript);
 }
